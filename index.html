@@ -4,6 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V8YESV2T9J"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-V8YESV2T9J');
+    </script>
+
     <style>
         body {
             margin: 0;
@@ -77,15 +88,40 @@
 <body>
     <div class="login-container">
         <h2>Login</h2>
-        <form>
+        <form id="login-form" onsubmit="trackFormSubmission(event)">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" placeholder="Enter your name" required>
 
             <label for="email">Email</label>
             <input type="email" id="email" name="email" placeholder="Enter your email" required>
 
-            <button type="submit">submit</button>
+            <button type="submit" onclick="trackButtonClick()">Submit</button>
         </form>
     </div>
+
+    <!-- Google Analytics Event Tracking -->
+    <script>
+        // Track Button Click Event
+        function trackButtonClick() {
+            gtag('event', 'click', {
+                'event_category': 'Button',
+                'event_label': 'Submit Button',
+                'value': 1
+            });
+        }
+
+        // Track Form Submission Event
+        function trackFormSubmission(event) {
+            event.preventDefault(); // Prevent form from submitting immediately
+            gtag('event', 'submit', {
+                'event_category': 'Form',
+                'event_label': 'Login Form Submission',
+                'value': 1
+            });
+
+            // Submit the form manually after tracking
+            document.getElementById("login-form").submit();
+        }
+    </script>
 </body>
 </html>
